@@ -19,6 +19,7 @@ class spellChecker{
     void loadDictinSpellChecker(const string &filename);
     void printRecommendedWords(vector<string> misspelled);
     void checkfile(const string &name);
+    void RemoveRepeatedMisspelled(vector<string> &misspelled);
 };
 
 #endif
