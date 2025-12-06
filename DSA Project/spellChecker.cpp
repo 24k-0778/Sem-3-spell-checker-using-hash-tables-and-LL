@@ -86,7 +86,30 @@ void spellChecker::checkSentence(const string &sentence){
         cout<<"no misspellings\n";
         return;
     }
+    RemoveRepeatedMisspelled(misspelled);
     printRecommendedWords(misspelled);
+}
+
+
+
+
+void spellChecker:: RemoveRepeatedMisspelled(vector<string> &misspelled){
+
+    vector<string> result;
+    for(int i = 0; i < misspelled.size(); i++){
+        bool present = false;
+        for(int j = 0; j < result.size();j++){
+            if(misspelled[i] == result[j]){
+                present = true;
+                break;
+            }
+        }
+        if(!present){
+            result.push_back(misspelled[i]);
+        }
+    }
+    misspelled = result;
+    return;
 }
 
 void spellChecker::printRecommendedWords(vector<string> misspelled){
@@ -119,17 +142,22 @@ void spellChecker::printRecommendedWords(vector<string> misspelled){
         }
         if(choice == "n") break;
         int num;
-        cout<<"for which word do you want to see recommendations for (enter number): ";
-        while (!(cin >> num)){  
+        cout << "For which word do you want to see recommendations (enter number): ";
+
+    while(true){
+        if(cin >> num){
+            if(num >= 1 && num <= misspelled.size()) {
+                break;  // valid number → exit loop
+            }else{
+                cout << num << " is an invalid number. Please enter a number between 1 and "
+                 << misspelled.size() << ": ";
+            }
+         }else{
             cin.clear();
             cin.ignore(10000, '\n');
-            cout << "Invalid. Enter a valid number: ";
+            cout << "Invalid choice, please enter a number: ";
         }
-
-        if(num < 1 || num > misspelled.size()){
-            cout<<"invalid number.\n";
-            continue;
-        }
+}
 
         string moreRecommendationsForThisWord = misspelled[num - 1];
         int minDistance = 999;
