@@ -21,11 +21,20 @@ int main() {
         cout << "2 File spell checking\n";
         cout<<"3 to exit\n";
 
-        int choice;
+        string choice;
         cin >> choice;
         cin.ignore(); 
 
-        if (choice == 1){
+
+        if(choice.size() != 1){
+            cout << "Invalid choice. \n";
+            continue;
+        }
+
+
+        char ch = choice[0];
+
+        if (ch == '1'){
             cout << "\nEnter sentences. Use STOP to terminate\n";
             string sentence;
             while (true){
@@ -35,14 +44,14 @@ int main() {
                 s.checkSentence(sentence);
             }
         } 
-        else if(choice == 2){
+        else if(ch == '2'){
             cout << "Enter filename: ";
             string filename;
             cin >> filename;
             cin.ignore(); 
             s.checkfile(filename);
         } 
-        else if(choice == 3){
+        else if(ch == '3'){
             cout << "terminated\n";
             break;
         } 
